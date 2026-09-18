@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+ <button id="click">Dice</button>
+    <h2 id="text">Click the dice</h2>
+    
+
+        <script>
+
+            let myButton = document.getElementById('click');
+            let text = document.getElementById ('text');
+            
+
+            myButton.addEventListener('click', function(evt){
+                let dice = Math.floor(Math.random() *6) +1;
+                text.innerHTML = "You got the number " + dice ;
+            })
+
+
+        </script>
+
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  
+    <script>
+
+        let myNumbers = [4, 9, 3, 12];
+        let startValue = 0;
+        let sum = myNumbers.reduce(handleReduce, startValue);
+        console.log(sum);
+        let average = sum / myNumbers.length;
+        console.log(average);
+
+        function handleReduce(accumulatedValue, value){
+            return accumulatedValue + value;
+
+
+        }
+
+        </script>
+
+
+</body>
+</html>

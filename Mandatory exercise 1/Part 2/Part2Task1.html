@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<span>Length: </span>
+<input id="myInput" type="text" />
+<button id="cmButton">Convert to cm</button>
+<button id ="inchesButton">Convert to inches</button>
+<h2 id="myText">The result...</h2>
+
+<br>
+<br>
+<br>
+
+<span>Temperature: </span>
+<input id="myInput2" type="text" />
+<button id="celsiusButtonIn">Convert to celsius</button>
+<button id ="fahrenheitButtonIn">Convert to fahrenheit</button>
+<h2 id="myText2">The result...</h2>
+
+<script>
+
+// LENGTH
+
+    let myButtonCm = document.getElementById('cmButton');
+    let myButtonInches = document.getElementById('inchesButton')
+    let myInput = document.getElementById('myInput');
+    let myText = document.getElementById('myText');
+
+    myButtonCm.addEventListener('click', function(evt) {
+        let inches = parseFloat(myInput.value);
+        let cm = inches * 2.54;
+        myText.innerHTML = inches + " inches equals " + cm + " cm";
+    });
+
+    myButtonInches.addEventListener('click', function(evt) {
+        let inches = parseFloat(myInput.value);
+        let cm = inches / 2.54;
+        myText.innerHTML = cm + " cm equals " + inches + " inches";
+    });
+
+    
+// TEMPERATURE
+
+    let buttonCelsiusIn  = document.getElementById('celsiusButtonIn');
+    let buttonFahrenheitIn =document.getElementById('fahrenheitButtonIn')
+    let myInput2 = document.getElementById('myInput2');
+    let myText2 = document.getElementById('myText2');
+
+    buttonFahrenheitIn.addEventListener('click', function(evt) {
+        let celsius = parseFloat(myInput2.value);
+        let fahrenheit = celsius * 9/5 +32;
+        myText2.innerHTML = celsius + " celsius equals " + fahrenheit.toFixed(2) + " fahrenheit.";
+    });
+
+    buttonCelsiusIn.addEventListener('click', function(evt) {
+        let fahrenheit = parseFloat(myInput2.value);
+        let celsius = (fahrenheit - 32) * 5/9;
+        myText2.innerHTML = fahrenheit + " fahrenheit equals " + celsius.toFixed(2) + " celsius";
+    });
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <canvas id="cnv" width="400" height="400"></canvas>
+    <br>
+    <input id="inpRadius" type="range" min="0" max="200" value="100">
+    
+
+    <script>
+
+        let cnv = document.getElementById('cnv');
+        let inpRadius = document.getElementById('inpRadius');
+
+        let ctx = cnv.getContext("2d");
+        ctx.fillStyle = "grey";
+        ctx.strokeStyle = "orange";
+        ctx.lineWidth = 2;
+        drawCircle();
+        drawSmallCircle();
+
+        //-------------------------------------------------
+        inpRadius.addEventListener('input', function(evt) {
+            drawCircle();
+        });
+
+        //-------------------------------------------------
+        function drawCircle() {
+            let radius = parseFloat(inpRadius.value);
+            ctx.fillRect(0, 0, 400, 400);
+            ctx.beginPath();
+            ctx.arc(200, 200, radius, 0, 2*Math.PI);
+            ctx.stroke();
+            drawSmallCircle();
+        }
+
+        function drawSmallCircle() {
+            let radius = parseFloat(inpRadius.value);
+
+            //Topp
+            ctx.beginPath();
+            ctx.arc(200, 200 - radius, 20, 0, 2*Math.PI);
+            ctx.stroke();
+
+            //Venstre
+            ctx.beginPath();
+            ctx.arc(200 - radius, 200, 20, 0, 2*Math.PI);
+            ctx.stroke();
+
+            //Høyre
+            ctx.beginPath();
+            ctx.arc(200 + radius, 200, 20, 0, 2*Math.PI);
+            ctx.stroke();
+
+            //Bunn
+            ctx.beginPath();
+            ctx.arc(200, 200 + radius, 20, 0, 2*Math.PI);
+            ctx.stroke();
+
+        }
+
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="container"> </div>
+    <img id ="trash" src = "søppelbøtte.png" alt="icon" height="30">
+
+    
+
+    <script>
+        
+        let cars = ["Volvo", "Peugeot", "Citroen", "Porche", "Skoda"];
+        let container = document.getElementById('container')
+        let trash = document.getElementById('trash')
+        let draggedCar; // Lager en variabel som husker hvilken bil som dras
+        let draggedDiv; //Lager en variabel som husker hvilken div som tilhører bilen
+        
+        cars.forEach(function(car, index) { //forEach går gjennom hvert bilmerke, og lager alt (div,knapper) og legger det inn i container
+        
+            let newDiv = document.createElement ("div");
+            let editButton = document.createElement ("button");
+            let deleteButton = document.createElement ("button");
+            newDiv.innerHTML = car; //Legger til navnet på bilen etter hvor man er i arrayet
+            
+            editButton.innerHTML = "Edit"; //Legger til navn på knappene
+            deleteButton.innerHTML = "Delete"; //Legger til navn på knappene
+
+            container.appendChild(newDiv); 
+            newDiv.appendChild(editButton);
+            newDiv.appendChild(deleteButton);
+
+            newDiv.draggable = true; //Kan dras
+            newDiv.addEventListener('dragstart', function(evt){
+                draggedCar = car; //Hvilken bil fra array blir dratt? 
+                draggedDiv = newDiv; //Hvilken div dras?
+            });
+
+
+            deleteButton.addEventListener('click',function(evt){
+                cars.splice(index, 1);
+                console.log(cars);
+                newDiv.innerHTML = ""; //Gjør den tom. Kan også bruke remove som sletter den 
+
+            });
+            
+         });
+
+
+        trash.addEventListener ('dragover', function(evt){ //Gjør at nettleseren tillater elementet å droppes
+                evt.preventDefault();
+            });
+
+        trash.addEventListener ('drop', function(evt){
+                
+            let index = cars.indexOf(draggedCar);
+            cars.splice(index, 1);
+            draggedDiv.innerHTML = ""; //Gjør den tom. Kan også bruke remove som sletter den
+
+            });
+         
+
+    </script>
+
+
+</body>
+</html>

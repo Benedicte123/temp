@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <button id="click">Click me</button>
+    <h2 id="text">Click the button</h2>
+    
+
+        <script>
+
+            let myButton = document.getElementById('click');
+            let text = document.getElementById ('text');
+            let counter = 0;
+
+            myButton.addEventListener('click', function(evt){
+                counter ++;
+                text.innerHTML = "You have clicked " + counter + " times";
+            })
+
+
+        </script>
+
+
+
+</body>
+</html>

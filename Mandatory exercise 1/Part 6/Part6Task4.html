@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        let colors = ["red", "orange", "purple", "brown"];
+        let numberOfSquares = 50;
+
+        for (let i = 0; i < numberOfSquares; i++) {
+            let myDiv = document.createElement("div");
+            let color = colors[i % colors.length];
+            myDiv.style.backgroundColor = color;
+            document.body.appendChild(myDiv);
+        }
+
+
+    </script>
+
+
+    <style>
+        div {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin: 2px;
+        }
+    </style>
+
+
+
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+<header>
+    <img id="headImg">
+</header>
+
+<div id = "categoryButtons"></div>
+
+<div id = chocolateList></div>
+
+<dialog id="chocoDialog"> <!--dialog popup, som viser informasjonen om akkurat den sjokoladen.-->
+    <img id="dialogImage">
+    <h2 id="dialogName"></h2>
+    <h3 id="dialogHeading"></h3>
+    <p id="dialogPrice"></p>
+    <button id="closeDialog">Close</button>
+</dialog>
+
+
+    <script>
+
+        //load the data from the server
+        loadData();
+
+        const closeDialog = document.getElementById("closeDialog");
+
+            closeDialog.addEventListener("click", function() {
+                document.getElementById("chocoDialog").close();
+            });
+
+
+
+        //----------------------------------
+        async function loadData(category ="") {  //funksjonen kan få med seg en kategori
+
+            let url = "https://sukkergris.no/choco/jsonlist/";
+
+            if (category!=""){ //hvis kategorien er noe gjør dette
+                url += "?category=" + category;
+            }
+
+            const response = await fetch(url);
+            const data = await response.json();
+
+            const categoryButtons = document.getElementById("categoryButtons");
+
+            if (categoryButtons.innerHTML == "") {
+
+                categoryButtons.innerHTML = `
+                <button data-category="">All</button>
+                `;
+
+                data.categories.forEach(function(category) {
+
+                categoryButtons.innerHTML += `
+                    <button data-category="${category}">
+                        ${category}
+                    </button>
+                `;
+
+                });
+
+            const buttons = document.querySelectorAll("#categoryButtons button"); //Hent alle buttons som ligger i category buttons
+
+            buttons.forEach(function(button) {
+
+                button.addEventListener("click", function() {
+
+                    let selectedCategory = button.dataset.category;
+
+                    loadData(selectedCategory);
+
+                });
+            
+            });
+
+            }
+
+            const headerImage = document.getElementById("headImg"); //henter heading
+            headerImage.src = data.info.headImg; //Henter bilde fra json
+
+            const chocolateList = document.getElementById("chocolateList");
+
+            chocolateList.innerHTML=""; //Fjerner alt på skjermen, så ikke sjokoladene legger seg under
+
+            data.chocodata.forEach(function(chocolate, index) { //For hver sjokolade i chocodata, gjør dette.
+
+                let smallImage = chocolate.image //Skal ha små bilder, så vi må gjøre så vi henter de små bildene, istedenfor å bruke CSS for å skalere dem ned
+                .replace ("large", "small")
+                .replace ("png", "jpg");
+
+                let imageURL = data.info.imgURL + smallImage; 
+                // Data... er mappen bildene ligger i, mens smallImager er filnavnet vi lagde.
+
+                chocolateList.innerHTML +=`
+                <div class = "chocolate" data-index="${index}"> 
+                <img class = "smallImage" src="${imageURL}">
+                <h2>${chocolate.name}</h2>
+                <h3>${chocolate.heading}</h3>
+                <p>${chocolate.price} ,-</p>
+                </div>
+                `;
+                    // vi legger inn en div pr sjokolade, i tillegg til en til tekst og en til bilde.
+                    // index lagrer nummeret til sjokoladen direkte på HTML elementet. For å lage kontroll på hvilken sjokolade som har hvilket nr, og som da kan brukes til å finne ut hvilken sjokolade som ble klikket på.
+                    // $ = Sett en del av denne javascript-variablen inn her. Isteden kunne man ha brukt h2 + eksempel + h3, men dollartegn går fortere.
+                
+            });
+
+            const chocolates = document.querySelectorAll(".chocolate"); //Finner alle HTML elementene som har slass=chocolate
+
+            chocolates.forEach(function(currentChoc){
+                currentChoc.addEventListener("click", function(){
+
+                    let index = currentChoc.dataset.index;
+                    let chocolate = data.chocodata[index];
+
+                    document.getElementById("dialogName").innerHTML = chocolate.name;
+                    document.getElementById("dialogHeading").innerHTML = chocolate.heading;
+                    document.getElementById("dialogPrice").innerHTML = chocolate.price + " ,-";
+                    document.getElementById("dialogImage").src =
+                        data.info.imgURL + chocolate.image; //henter det store bildet
+                    document.getElementById("chocoDialog").showModal(); //Åpne dialogboksen som et modalt vindu
+                });
+            });
+
+            
+
+
+            console.log(data); //the chocolate data
+        }
+
+        
+
+    </script>
+
+<style>
+    #headImg {
+        width: 100%;
+        height: 33vh; /*Betyr ca 1/3 av skjermen*/
+        object-fit: cover; /*Gjør at bildet ikke blir strukket*/
+    }
+
+    .chocolate {
+        display: grid; /*Lager grid for å dele opp info*/
+
+        grid-template-columns: 80px 1fr 60px; /*Bilde 80px bredt, tekst i resterende plass (fr = fraction), pris i 60px bredde */
+        grid-template-rows: auto auto; /*autojusterer høyden etter hvor mye tekst det er */
+
+        border: 1px solid black;
+    }
+
+    .smallImage {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+
+        grid-column: 1; /*Vi vil ha bildet i plass nr 1 i griddet*/
+        grid-row: 1/3; /*Gjør at bildet dekker begge radene, som vist i oppg*/
+    }
+
+    .chocolate h2 {
+        grid-column: 2;
+        grid-row: 1;
+        margin: 0; /*Gjør at bildet går helt ut i kanten. Nettleseren legger automatisk ganske store mellomrom rundt overskrifter. Det er derfor sjokoladeradene dine nå blir så høye sammenlignet med de små bildene*/
+    }
+
+    .chocolate h3 {
+        grid-column: 2;
+        grid-row: 2;
+        margin: 0;
+    }
+
+    .chocolate p {
+        grid-column: 3;
+        grid-row: 1 / 3;
+        margin: 0;
+    }
+
+    #chocoDialog {
+    width: 400px;
+    max-width: 90%;
+    padding: 20px;
+    }
+
+    #dialogImage {
+        width: 100%;
+        max-width: 300px;
+        display: block;
+        margin: 0 auto;
+    }
+
+
+
+</style>
+
+
+</body>
+
+</html>

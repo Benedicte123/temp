@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <span id = "nameText"> Name:</span>
+    <input id = "nameId">
+    <br>
+    <br>
+    <span phoneText = "phoneText"> Phone:</span>
+    <input id = "phoneId">
+     <button id = "clickDelete"> Delete this person</button>
+    <br>
+    <br>
+    <button id = "click"> Add person </button>
+    <div id = text></div>
+
+    <script>
+
+        let inputName = document.getElementById ('nameId');
+        let inputPhone = document.getElementById ('phoneId');
+        let button = document.getElementById ('click');
+        let buttonDelete = document.getElementById ('clickDelete');
+        let text = document.getElementById ('text');
+
+        
+        let array = [];
+
+        button.addEventListener('click', function (evt){
+            let name = inputName.value;
+            let phone = inputPhone.value;
+
+            let person = {
+                name: name,
+                phone: phone
+            }
+
+            array.push(person);
+
+            text.innerHTML += "<br>" + "Name: " + person.name + "<br>" 
+                                + 
+                                "Phone: " + person.phone + "<br>" + "<hr>";
+
+            console.log(array);
+            
+        })
+
+         buttonDelete.addEventListener('click', function (evt){
+            let phone = inputPhone.value;
+            let findPhone = array.findIndex (function(person){
+                return person.phone === phone;
+            })
+
+            if (findPhone !== -1){
+                array.splice(findPhone, 1);
+                
+                text.innerHTML = "";
+
+                array.forEach(function(person){
+                text.innerHTML += "<br>" + "Name: " + person.name + "<br>"
+                                + "Phone: " + person.phone + "<br>" + "<hr>";
+            });
+            }
+        })
+
+        
+    </script>
+
+
+
+</body>
+</html>

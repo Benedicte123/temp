@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <canvas id="cnv" width="500" height="500"></canvas>
+    <br>
+    <input id = radius type="range">
+    <input id = color type="color">
+
+
+<script>
+
+    let circles = [];
+
+    const cnv = document.getElementById ('cnv');
+    const ctx = cnv.getContext ("2d");
+    const impRadius = document.getElementById ("radius");
+    const impColor = document.getElementById ("color");
+
+    cnv.addEventListener('click', function(evt){
+        let radius = impRadius.value;
+        let color = impColor.value;
+        let x = evt.offsetX;
+        let y = evt.offsetY;
+        let foundCircle = false;
+
+        let circle = {
+            radius:radius,
+            color: color,
+            x:x,
+            y:y,
+            //objekt som skal inn i array
+        }
+
+        for (let i = circles.length - 1; i >= 0; i--) { 
+            let distance = Math.sqrt(
+            (x - circles[i].x) ** 2 +
+            (y - circles[i].y) ** 2
+            //Pytagoras, hvilket område på canvas sirklene dekker.
+            );
+
+            if (distance <= circles[i].radius){
+                circles[i].radius = radius;
+                circles[i].color = color;
+                // bytte kun farge og radius, vil beholde koordinater så den ikke flytter seg
+            
+                foundCircle = true;
+                break; //stopper, kjører ikke koden under
+            }
+        }
+
+        if (foundCircle == false) {
+        circles.push(circle);
+        //Hvis den ikke traff en annen sirkel, lag ny sirkel.
+        }
+
+        ctx.clearRect(0, 0, cnv.width, cnv.height); //fjerner alt på canvaset
+
+        circles.forEach(function(circle) { //tegner alle arrays på nytt med informasjonen som vi har lagret med hjelp av objekt.
+
+            ctx.beginPath();
+            ctx.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);
+
+            ctx.fillStyle = circle.color;
+            ctx.fill();
+
+            ctx.stroke();
+        
+            
+            });
+        
+    });
+
+
+</script>
+
+</body>
+</html>
+

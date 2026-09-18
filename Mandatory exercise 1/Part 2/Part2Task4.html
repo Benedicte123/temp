@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <span>Wall length:</span>
+    <input id="length" type="number" />
+    <span>Closet width:</span>
+    <input id="width" type="number" />
+    <button id="calculate">Calculate number of closets</button>
+    <h2 id="result">The result...</h2>
+
+
+    <script>
+        let button = document.getElementById('calculate');
+        let lengde = document.getElementById('length');
+        let bredde = document.getElementById('width');
+        let result = document.getElementById('result');
+      
+        button.addEventListener('click', function(evt){
+            let inputLength = parseFloat(lengde.value);
+            let inputWidth = parseFloat(bredde.value);
+            
+            let numberOfClosets = Math.floor(inputLength/inputWidth);
+            let wallRemaining = inputLength % inputWidth;
+            result.innerHTML = "You can fit " + numberOfClosets + "closets. With "+ wallRemaining + " cm remaining of the wall";
+            })
+
+
+    </script>
+
+
+
+</body>
+</html>

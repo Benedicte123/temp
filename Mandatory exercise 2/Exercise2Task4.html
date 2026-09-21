@@ -29,7 +29,7 @@
     <script>
 
         //load the data from the server
-        loadData();
+        loadData(); // skal kontakte sukkergris serveren. serveren svarer ikke asap, så funksjonen async må kunne håndtere ventetiden
 
         const closeDialog = document.getElementById("closeDialog");
 
@@ -40,7 +40,7 @@
 
 
         //----------------------------------
-        async function loadData(category ="") {  //funksjonen kan få med seg en kategori
+        async function loadData(category ="") {  //funksjonen kan få med seg en kategori. Async skal gjøre noe asynkront, og jeg vil bruka await inni den
 
             let url = "https://sukkergris.no/choco/jsonlist/";
 
@@ -48,8 +48,8 @@
                 url += "?category=" + category;
             }
 
-            const response = await fetch(url);
-            const data = await response.json();
+            const response = await fetch(url); //sender en forespørsel til serveren. await betyr vent her til denne operasjonen er ferdig før du går videre i denne funksjonen
+            const data = await response.json(); //her må også JS vente, fordi svaret skal leses og konverteres til et JS objekt.
 
             const categoryButtons = document.getElementById("categoryButtons");
 
@@ -62,10 +62,10 @@
                 data.categories.forEach(function(category) {
 
                 categoryButtons.innerHTML += `
-                    <button data-category="${category}">
+                    <button data-category="${category}"> 
                         ${category}
                     </button>
-                `;
+                `; // $ betyr sett verdien til denne JavaScript-variabelen inn akkurat her.
 
                 });
 

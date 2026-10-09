@@ -1,0 +1,152 @@
+/* GENERELT FOR ALLE VISNINGER */
+
+:host {
+    display: block;
+    width: 440px;
+    height: 640px;
+    background-color: #303933;
+    color: #fff5dc;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 6px #0005;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* TOPPMENY */
+
+header {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 5px;
+    border-bottom: 1px solid #48584b;
+}
+
+header span {
+    color: #8aaa83;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+/* TILBAKEKNAPP */
+
+#backButton {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 50%;
+    background-color: #62a80c;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+    padding: 0;
+}
+
+#backButton:hover {
+    background-color: #79be1c;
+}
+
+/* OVERSKRIFTER */
+
+h1 {
+    margin: 0;
+    font-size: 38px;
+    font-weight: bold;
+    color: #53665b;
+}
+
+/* KATEGORIVISNING */
+
+#categoryList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#categoryList li {
+    padding: 5px 4px;
+    font-size: 19px;
+    border-bottom: 1px solid #48584b;
+    cursor: pointer;
+}
+
+#categoryList li:hover {
+    background-color: #56695e;
+}
+
+/* PLANTELISTE */
+
+#plantList article {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    grid-template-rows: auto auto 1fr;
+    column-gap: 6px;
+    min-height: 82px;
+    border-bottom: 1px solid #48584b;
+    cursor: pointer;
+}
+
+#plantList article:hover {
+    background-color: #56695e;
+}
+
+#plantList article img {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    width: 80px;
+    height: 82px;
+    object-fit: cover;
+}
+
+#plantList article h2 {
+    grid-column: 2;
+    margin: 3px 0 0;
+    font-size: 16px;
+}
+
+#plantList article p {
+    grid-column: 2;
+    margin: 2px 4px 0 0;
+    font-size: 13px;
+}
+
+#plantList article p:last-child {
+    align-self: end;
+    margin-bottom: 4px;
+}
+
+/* PLANTEDETALJER */
+
+#plantImage {
+    display: block;
+    width: 330px;
+    height: 330px;
+    object-fit: cover;
+    margin: 25px auto 10px;
+}
+
+#plantName {
+    font-size: 34px;
+    color: #fff5dc;
+}
+
+#plantDetails {
+    width: 330px;
+    margin: 0 auto;
+    font-size: 13px;
+}
+
+#plantDetails p {
+    margin: 0;
+    padding: 8px 0;
+    border-bottom: 1px solid #48584b;
+}
+
+#plantDetails p:last-child {
+    border-bottom: none;
+}

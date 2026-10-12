@@ -1,10 +1,10 @@
-// skal hente informasjon fra serveren og håndtere navigasjonen.
+// Main skal hente informasjon fra serveren og håndtere navigasjonen.
 
-import "./views.mjs"; // Importerer så vi kan bruke Custom Elements
+import "./views.mjs";
 
 
 
-const app = document.getElementById("app"); // Henter HTML-elementet med id="app" fra index.html
+const app = document.getElementById("app"); 
 
 async function loadCategories() { // Asynkron funksjon som henter kategoriene fra serveren
 
@@ -34,13 +34,13 @@ async function loadPlants(category) { // Henter fra valgt kategori
         encodeURIComponent(category) // Gjør kategorien trygg for URL
     );
 
-    if (!response.ok) { // Sjekker om forespørselen lykkes
-        throw new Error("Could not load plants"); // Gir feilmelding
+    if (!response.ok) { 
+        throw new Error("Could not load plants"); 
     }
 
-    const plants = await response.json(); // Gjør JSON om til JavaScript-data
+    const plants = await response.json(); // Gjør JSON om til JavaScript-data og leser
 
-    const view = document.createElement("plant-list-view"); // Oppretter plantevisning
+    const view = document.createElement("plant-list-view"); 
 
     app.replaceChildren(view); // Viser plantevisning
     view.showPlants(plants); // Sender plantene til visningen
@@ -50,24 +50,24 @@ document.addEventListener("categorySelected", (evt) => { // Lytter
     navigate("plants", evt.detail.category.kategori); // Bruker navigate til å huske hvilken vi trykket på
 });
 
-async function loadPlantDetails(id) { // Henter plantedetaljer
+async function loadPlantDetails(id) { 
     const response = await fetch(
         "https://sukkergris.no/plant/?id=" +
-        encodeURIComponent(id) // Koder ID for URL
+        encodeURIComponent(id) 
     );
 
-    if (!response.ok) { // Sjekker respons
-        throw new Error("Could not load plant details"); // Feilmelding
+    if (!response.ok) { 
+        throw new Error("Could not load plant details"); 
     }
 
-    const plant = await response.json(); // Leser JSON-data
+    const plant = await response.json();
 
-    console.log(plant); // Viser data i konsollen
+    console.log(plant); 
 
-    const view = document.createElement("plant-detail-view"); // Lager detaljvisning
+    const view = document.createElement("plant-detail-view"); 
 
-    app.replaceChildren(view); // Viser detaljvisningen
-    view.showPlant(plant); // Sender plantedata
+    app.replaceChildren(view); 
+    view.showPlant(plant);
 }
 
 document.addEventListener("plantSelected", (evt) => { // Lytter
@@ -106,11 +106,11 @@ async function showView(state) { // Viser riktig visning
     }
 }
 
-window.addEventListener("popstate", (evt) => { //popstate hendelse når vi navigerer rundt
-    if (evt.state) { // Sjekker om historikk finnes
-        showView(evt.state); // Viser lagret visning
+window.addEventListener("popstate", (evt) => { // popstate trigges når brukeren går tilbake eller frem i nettleserhistorikken
+    if (evt.state) { // Sjekker om historikk finnes, altså den tilstanden du tidligere har lagret med history.pushState() eller history.replaceState()
+        showView(evt.state); // Hvis ja, viser lagret visning
     } else {
-        showView({ view: "categories" }); // Viser riktig side
+        showView({ view: "categories" }); // Hvis nei, Viser standardvisningen
     }
 });
 

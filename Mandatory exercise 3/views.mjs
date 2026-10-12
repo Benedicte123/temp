@@ -82,28 +82,28 @@ class PlantListView extends HTMLElement { // Lager et Custom Element som arver f
 
         const list = this.shadowRoot.getElementById("plantList"); // Henter beholderen fra Shadow DOM
 
-        plants.forEach(plant => { // Går gjennom alle plantene fra serveren
+        plants.forEach(plant => { 
 
         const article = document.createElement("article"); // Lager et eget element for hver plante
-        article.addEventListener("click", () => { // Registrerer klikk på planten
+        article.addEventListener("click", () => { // Registrerer klikk
             this.dispatchEvent(new CustomEvent("plantSelected", { // Sender egendefinert hendelse
                 detail: { id: plant.id }, // Sender plante-ID
-                bubbles: true, // Lar hendelsen boble oppover
+                bubbles: true, // Lar hendelsen boble oppover. true betyr at hendelsen går oppover i DOM‑treet
                 composed: true // Lar hendelsen gå ut av Shadow DOM
             }));
         });
 
-        const name = document.createElement("h2"); // overskrift
-        name.textContent = plant.navn; //plantenavnet som tekst
+        const name = document.createElement("h2"); 
+        name.textContent = plant.navn; 
 
-        const description = document.createElement("p"); // Lager et avsnitt for beskrivelsen
-        description.textContent = plant.beskrivelse; // Setter plantebeskrivelsen som tekst
+        const description = document.createElement("p"); 
+        description.textContent = plant.beskrivelse; 
 
-        const price = document.createElement("p"); // Lager et avsnitt for prisen
-        price.textContent = "kr " + plant.pris + ",-"; // Viser prisen med kr foran og ,- bak
+        const price = document.createElement("p"); 
+        price.textContent = "kr " + plant.pris + ",-"; 
 
-        const image = document.createElement("img"); // Lager et bildeelement
-        image.src = "https://sukkergris.no/plantimages/small/" + plant.bildefil; // Henter bildet fra serveren
+        const image = document.createElement("img"); 
+        image.src = "https://sukkergris.no/plantimages/small/" + plant.bildefil; 
         image.alt = plant.navn; // Setter plantenavnet som alternativ bildetekst
 
         article.appendChild(image);
@@ -153,9 +153,9 @@ class PlantDetailView extends HTMLElement { // Plantedetaljer
                     plant.bildefil.replace(/\.png$/i, ".jpg"); // Henter stort JPG-bilde
         image.alt = plant.navn; // Bildetekst
 
-        const details = this.shadowRoot.getElementById("plantDetails"); // Henter detaljer
+        const details = this.shadowRoot.getElementById("plantDetails"); 
 
-        const category = document.createElement("p"); // Lager avsnitt
+        const category = document.createElement("p"); 
         category.textContent = "Kategori: " + plant.kategori; 
 
         const description = document.createElement("p");
